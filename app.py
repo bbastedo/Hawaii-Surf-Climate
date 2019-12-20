@@ -32,8 +32,8 @@ def welcome():
          f"/api/v1.0/precipitation<br/>"
          f"/api/v1.0/stations<br/>"
          f"/api/v1.0/tobs<br/>"
-         f"/api/v1.0/<start><br/>"
-         f"/api/v1.0/<start>/<end><br/>"
+         f"/api/v1.0/startYYYY-MM-DD<br/>"
+         f"/api/v1.0/startYYYY-MM-DD&endYYYY-MM-DD<br/>"
      )
 
 
@@ -102,7 +102,7 @@ def start(start=None):
     return jsonify(from_start_list)
 
 
-@app.route("/api/v1.0/<start>/<end>")
+@app.route("/api/v1.0/<start>&<end>")
 def start_end(start=None, end=None):
     between_dates = session.query(Measurement.date, func.min(Measurement.tobs), func.avg(Measurement.tobs),
                                   func.max(Measurement.tobs)).filter(Measurement.date >= start).filter(
